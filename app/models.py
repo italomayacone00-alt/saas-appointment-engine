@@ -10,6 +10,7 @@ class Appointment(db.Model):
     start_at = db.Column(db.DateTime, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     status = db.Column(db.String(20), default="scheduled")
+<<<<<<< HEAD
 
 
 # --- ADICIONE ESTA PARTE ABAIXO ---
@@ -20,3 +21,5 @@ class Patient(db.Model):
     phone = db.Column(db.String(20))
     cpf = db.Column(db.String(14)) # Opcional
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+=======
+>>>>>>> upstream/main
