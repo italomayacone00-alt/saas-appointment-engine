@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - DentistFlow{% endblock %}
+
+{% block content %}
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-info">
+                <h3>Na Fila de Espera</h3>
+                <p>{{ count_waiting }} Pacientes</p>
+            </div>
+            <div class="icon-box orange-icon"><i class="ph ph-hourglass-high"></i></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-info">
+                <h3>Em Atendimento</h3>
+                <p>{{ count_in_service }} Paciente</p>
+            </div>
+            <div class="icon-box blue-icon"><i class="ph ph-heartbeat"></i></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-info">
+                <h3>Agendados Hoje</h3>
+                <p>{{ count_total }} Pacientes</p>
+            </div>
+            <div class="icon-box green-icon"><i class="ph ph-check-circle"></i></div>
+        </div>
+    </div>
+
+    <section class="queue-section">
+        <div class="section-header">
+            <h2>Fila em Tempo Real (Hoje)</h2>
+            <a href="{{ url_for('appointments.list_view') }}" class="btn-primary">
+                <i class="ph ph-plus"></i> Novo Paciente
+            </a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome do Paciente</th>
+                    <th>Horário</th>
+                    <th>Procedimento</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for agendamento in agendamentos %}
+                <tr>
+                    <td style="font-weight: 500;">{{ agendamento.name }}</td>
+                    <td>{{ agendamento.start_at.strftime('%H:%M') }}</td>
+                    <td>{{ agendamento.service_type }}</td>
+                    <td>
+                        <span class="status-badge status-{{ agendamento.status }}">
+                            {{ agendamento.status }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="action-btn" title="Chamar"><i class="ph ph-megaphone"></i></button>
+                        <button class="action-btn"><i class="ph ph-pencil-simple"></i></button>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; color: var(--text-gray);">
+                        Nenhum paciente agendado para hoje.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+{% endblock %}
