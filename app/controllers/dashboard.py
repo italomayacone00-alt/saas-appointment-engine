@@ -1,17 +1,11 @@
 from flask import Blueprint, render_template
-<<<<<<< HEAD
 from datetime import datetime, date, time
 from ..models import Appointment, db
-=======
-
-from ..models import Appointment 
->>>>>>> upstream/main
 
 bp = Blueprint("dashboard", __name__, template_folder="../views/templates")
 
 @bp.route("/")
 def index():
-<<<<<<< HEAD
     # Definir o início e o fim do dia de hoje para filtrar
     hoje = date.today()
     inicio_dia = datetime.combine(hoje, time.min)
@@ -40,8 +34,3 @@ def index():
         count_waiting=count_waiting,
         count_in_service=count_in_service
     )
-=======
-    # Exemplo: Mostrar quantos agendamentos existem hoje
-    total_agendamentos = Appointment.query.count()
-    return render_template("dashboard.html", total=total_agendamentos)
->>>>>>> upstream/main
