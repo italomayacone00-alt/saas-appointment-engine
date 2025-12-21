@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block title %}Agenda - DentistFlow{% endblock %}
+
+{% block content %}
+    
+    <div class="header">
+        <div>
+            <h1>Gerenciar Agenda</h1>
+            <p style="color: var(--text-gray);">Cadastre novos pacientes ou visualize os agendamentos.</p>
+        </div>
+    </div>
+
+    <div class="split-layout">
+        
+        <div class="card-box">
+            <h2 style="font-size: 1.1rem; margin-bottom: 20px; color: var(--text-dark);">
+                <i class="ph ph-plus-circle" style="color: var(--primary-color);"></i> Novo Agendamento
+            </h2>
+            
+            <form action="{{ url_for('appointments.create') }}" method="POST">
+                
+                <div class="form-group">
+                    <label for="name" class="form-label">Nome do Paciente</label>
+                    <input type="text" name="name" id="name" class="form-input" placeholder="Ex: João Silva" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="service_type" class="form-label">Procedimento</label>
+                    <input type="text" name="service_type" id="service_type" class="form-input" placeholder="Ex: Limpeza, Canal..." required>
+                </div>
+
+                <div class="form-group">
+                    <label for="professional" class="form-label">Dentista Responsável</label>
+                    <input type="text" name="professional" id="professional" class="form-input" placeholder="Ex: Dra. Ana">
+                </div>
+
+                <div class="form-group">
+                    <label for="start_at" class="form-label">Data e Horário</label>
+                    <input type="datetime-local" name="start_at" id="start_at" class="form-input" required>
+                </div>
+
+                <button type="submit" class="btn-primary btn-block">
+                    Confirmar Agendamento
+                </button>
+            </form>
+        </div>
+
+        <div class="card-box" style="flex: 1;">
+            <div class="section-header">
+                <h2 style="font-size: 1.1rem;">Todos os Agendamentos</h2>
+                <span style="background: var(--secondary-color); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                    {{ appointments|length }} Registros
+                </span>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data/Hora</th>
+                        <th>Paciente</th>
+                        <th>Procedimento</th>
+                        <th>Profissional</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appt in appointments %}
+                    <tr>
+                        <td style="font-weight: 500;">
+                            <i class="ph ph-calendar-blank" style="margin-right: 5px; color: var(--text-gray);"></i>
+                            {{ appt.start_at.strftime('%d/%m %H:%M') }}
+                        </td>
+                        <td>{{ appt.name }}</td>
+                        <td>{{ appt.service_type }}</td>
+                        <td>{{ appt.professional }}</td>
+                        <td>
+                            <span class="status-badge status-{{ appt.status }}">
+                                {{ appt.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 40px; color: var(--text-gray);">
+                            <i class="ph ph-calendar-x" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                            Nenhum agendamento encontrado na agenda.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

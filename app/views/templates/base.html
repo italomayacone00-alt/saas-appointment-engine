@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DentistFlow{% endblock %}</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="logo">
+            <i class="ph ph-tooth"></i> DentistFlow
+        </div>
+        <a href="{{ url_for('dashboard.index') }}" class="menu-item active"><i class="ph ph-squares-four"></i> Dashboard</a>
+        <a href="{{ url_for('patients.index') }}" class="menu-item"><i class="ph ph-users"></i> Pacientes</a>
+        <a href="{{ url_for('appointments.list_view') }}" class="menu-item"><i class="ph ph-calendar-check"></i> Agenda</a>
+        <!--<a href="#" class="menu-item"><i class="ph ph-chart-line"></i> Financeiro</a>
+        <a href="#" class="menu-item"><i class="ph ph-gear"></i> Configurações</a> -->
+    </nav>
+
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
